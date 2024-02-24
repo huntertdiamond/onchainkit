@@ -44,14 +44,25 @@ function ValidFrame({ tags }: { tags: Record<string, string> }) {
       buttons,
     };
   }, [tags]);
+  // Determine the image class based on the aspect ratio
+  const imageClass = useMemo(() => {
+    switch (imageAspectRatio) {
+      case '1/1':
+        return 'h-[462px] w-[462px]';
+      case '1.91/1':
+        return 'h-[241px] w-[462px]';
+      default:
+        return 'aspect-[1.91/1]';
+    }
+  }, [imageAspectRatio]);
 
   return (
     <div className="w-full max-w-[460px] sm:max-w-full">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className={`w-full rounded-t-xl aspect-[${imageAspectRatio}] object-cover `}
+        className={`w-full rounded-t-xl object-cover ${imageClass}`}
         src={image}
-        alt=""
+        alt="frame image"
       />
       <div className="bg-content-light flex flex-col gap-2 rounded-b-xl px-4 py-2">
         {!!input && (
