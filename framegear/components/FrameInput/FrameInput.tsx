@@ -7,8 +7,11 @@ import { useCallback, useState } from 'react';
 export function FrameInput() {
   // Initialize the URL state with the 'frameURL' query parameter if it exists
   const [url, setUrl] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('frameURL') || '';
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('frameURL') || '';
+    }
+    return '';
   });
   const [_, setResults] = useAtom(frameResultsAtom);
 
@@ -42,11 +45,9 @@ export function FrameInput() {
           onChange={handleUrlChange}
           title="Enter your frame URL here to fetch"
         />
-        {!url && (
-          <span title="Enter your frame URL here to fetch">
-            <InfoCircledIcon className="h-5 w-5" />
-          </span>
-        )}
+        <span title="Enter your frame URL here to fetch">
+          <InfoCircledIcon className="h-5 w-5" />
+        </span>
       </span>
       <button
         className="h-[40px] w-full w-min self-end rounded-md bg-white px-2 text-black"

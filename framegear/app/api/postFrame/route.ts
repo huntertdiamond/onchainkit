@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
   });
 
   const html = await res.text();
+  console.log(html);
 
   return Response.json({ html });
 }
