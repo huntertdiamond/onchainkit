@@ -15,28 +15,28 @@ export function FrameInput() {
 
   return (
     <div className="flex  gap-2">
-      <span className='flex border-pallette-line bg-input h-[40px] rounded-md border p-2 w-full'>
+      <span className="border-pallette-line bg-input flex h-[40px] w-full rounded-md border p-2">
         <input
-          className="bg-input w-full focus:outline-none focus:ring-0 w-full"
+          className="bg-input w-full w-full focus:outline-none focus:ring-0"
           type="url"
           placeholder="Enter URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          title='Enter your frame URL here to fetch'
+          title="Enter your frame URL here to fetch"
         />
-        <span title='Enter your frame URL here to fetch'>
-      <InfoCircledIcon className='h-5 w-5'/>
+        <span title="Enter your frame URL here to fetch">
+          <InfoCircledIcon className="h-5 w-5" />
         </span>
       </span>
       <button
-        className="h-[40px] w-full self-end rounded-md bg-white text-black w-min px-2"
+        className="h-[40px] w-full w-min self-end rounded-md bg-white px-2 text-black"
         type="button"
         onClick={getResults}
         disabled={url.length < 1}
       >
         Fetch
       </button>
-      <hr className='opacity-60'/>
+      <hr className="opacity-60" />
     </div>
   );
 }

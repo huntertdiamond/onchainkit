@@ -46,7 +46,7 @@ function ValidFrame({ tags }: { tags: Record<string, string> }) {
   }, [tags]);
 
   return (
-    <div className='w-full max-w-[460px] sm:max-w-full'>
+    <div className="w-full max-w-[460px] sm:max-w-full">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className={`w-full rounded-t-xl aspect-[${imageAspectRatio}] object-cover `}

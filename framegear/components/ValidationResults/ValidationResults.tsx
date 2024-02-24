@@ -44,7 +44,6 @@ enum FCFieldNames {
   FcFrameImageAspectRatio = 'fc:frame:image:aspect_ratio',
 }
 
-
 function ValidationResultsContent() {
   const [results] = useAtom(frameResultsAtom);
   const latestResult = results[results.length - 1];
@@ -56,25 +55,35 @@ function ValidationResultsContent() {
       const orderB = Object.values(FCFieldNames).indexOf(b[0] as FCFieldNames);
       return orderA - orderB;
     });
-      // get all of the fc:button[x]s  and place them in one row to preserve vertical space
+    // get all of the fc:button[x]s  and place them in one row to preserve vertical space
     const buttonsRow = sortedEntries.filter(([key]) =>
-      [FCFieldNames.FcFrameButton1, FCFieldNames.FcFrameButton2, FCFieldNames.FcFrameButton3, FCFieldNames.FcFrameButton4].includes(key as FCFieldNames)
+      [
+        FCFieldNames.FcFrameButton1,
+        FCFieldNames.FcFrameButton2,
+        FCFieldNames.FcFrameButton3,
+        FCFieldNames.FcFrameButton4,
+      ].includes(key as FCFieldNames),
     );
-      //  Filter the input placeholder, the fc:frame value, and the aspect ratio for a row. 
+    //  Filter the input placeholder, the fc:frame value, and the aspect ratio for a row.
     const inputAndAspectRatioRow = sortedEntries.filter(([key]) =>
-      [FCFieldNames.FcFrameInputText, FCFieldNames.FcFrame, FCFieldNames.FcFrameImageAspectRatio].includes(key as FCFieldNames)
+      [
+        FCFieldNames.FcFrameInputText,
+        FCFieldNames.FcFrame,
+        FCFieldNames.FcFrameImageAspectRatio,
+      ].includes(key as FCFieldNames),
     );
-      //  get all of the other tags and place them in their own row.
-    const otherRows = sortedEntries.filter(([key]) =>
-      !buttonsRow.concat(inputAndAspectRatioRow).some(([buttonKey]) => buttonKey === key)
+    //  get all of the other tags and place them in their own row.
+    const otherRows = sortedEntries.filter(
+      ([key]) =>
+        !buttonsRow.concat(inputAndAspectRatioRow).some(([buttonKey]) => buttonKey === key),
     );
 
     return { buttonsRow, inputAndAspectRatioRow, otherRows };
   }, [latestResult]);
 
   return (
-    <div className="flex flex-col gap-2 max-w-1/2">
-      <span className='w-full bg-content p-2 rounded-[4px]'>
+    <div className="max-w-1/2 flex flex-col gap-2">
+      <span className="bg-content w-full rounded-[4px] p-2">
         <h2>
           Frame validations{' '}
           {!!latestResult && (
@@ -84,23 +93,23 @@ function ValidationResultsContent() {
           )}
         </h2>
       </span>
-      <div className='flex flex-col bg-content p-4 rounded-[8px]'>
-      <div className="flex justify-between ">
-        {sortedTags.buttonsRow.map(([key, value]) => (
-          <ValidationEntry key={key} name={key} value={value} error={latestResult.errors[key]} />
-        ))}
-      </div>
-      <hr className='opacity-30 my-4' />
-      <div className="flex justify-between">
-        {sortedTags.inputAndAspectRatioRow.map(([key, value]) => (
-          <ValidationEntry key={key} name={key} value={value} error={latestResult.errors[key]} />
-        ))}
-      </div>
-      {sortedTags.otherRows.map(([key, value]) => (
-        <div key={key} className="flex justify-between">
-          <ValidationEntry name={key} value={value} error={latestResult.errors[key]} />
+      <div className="bg-content flex flex-col rounded-[8px] p-4">
+        <div className="flex justify-between ">
+          {sortedTags.buttonsRow.map(([key, value]) => (
+            <ValidationEntry key={key} name={key} value={value} error={latestResult.errors[key]} />
+          ))}
         </div>
-      ))}
+        <hr className="my-4 opacity-30" />
+        <div className="flex justify-between">
+          {sortedTags.inputAndAspectRatioRow.map(([key, value]) => (
+            <ValidationEntry key={key} name={key} value={value} error={latestResult.errors[key]} />
+          ))}
+        </div>
+        {sortedTags.otherRows.map(([key, value]) => (
+          <div key={key} className="flex justify-between">
+            <ValidationEntry name={key} value={value} error={latestResult.errors[key]} />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -113,22 +122,22 @@ function ValidationEntry({ name, value, error }: ValidationEntryProps) {
 
   return (
     <div className="flex flex-col gap-2 pb-4">
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         <span>{name}</span>
-        <div className='flex gap-2 items-center'>
-        {value && (
-          <button
-            onClick={() => copyToClipboard(value)}
-            className="p-1 rounded hover:bg-gray-500"
-            title="Copy to clipboard"
-          >
-            <ClipboardCopyIcon className="h-4 w-4" />
-          </button>
-        )}
-        <span className='text-xs'>{error ? '🔴' : '🟢'}</span>
+        <div className="flex items-center gap-2">
+          {value && (
+            <button
+              onClick={() => copyToClipboard(value)}
+              className="rounded p-1 hover:bg-gray-500"
+              title="Copy to clipboard"
+            >
+              <ClipboardCopyIcon className="h-4 w-4" />
+            </button>
+          )}
+          <span className="text-xs">{error ? '🔴' : '🟢'}</span>
         </div>
       </div>
-      <div className="font-mono break-all">{value || 'Not set'}</div>
+      <div className="break-all font-mono">{value || 'Not set'}</div>
       {!!error && <div className="font-mono italic">{error}</div>}
     </div>
   );

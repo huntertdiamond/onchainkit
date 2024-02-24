@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function Header() {
   return (
-    <div className="border-pallette-line flex max-w-maxWidth justify-center items-center gap-4 border-b py-8 mx-auto">
+    <div className="border-pallette-line max-w-maxWidth mx-auto flex items-center justify-center gap-4 border-b py-8">
       <h1>
         <AppName className="px-6 text-4xl" />
       </h1>
@@ -15,9 +15,7 @@ export function Header() {
 
 function Banner() {
   return (
-    <div
-      className="max-w-layout-max border-pallette-line bg-banner flex w-full items-center justify-between rounded-lg border px-3 py-2 gap-5"
-    >
+    <div className="max-w-layout-max border-pallette-line bg-banner flex w-full items-center justify-between gap-5 rounded-lg border px-3 py-2">
       <div className="flex items-center gap-4">
         <div className="text-3xl">⚒️</div>
         <section className="flex flex-col gap-2">
