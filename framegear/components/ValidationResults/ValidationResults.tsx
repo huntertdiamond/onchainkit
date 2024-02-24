@@ -60,7 +60,7 @@ function ValidationResultsContent() {
     const buttonsRow = sortedEntries.filter(([key]) =>
       [FCFieldNames.FcFrameButton1, FCFieldNames.FcFrameButton2, FCFieldNames.FcFrameButton3, FCFieldNames.FcFrameButton4].includes(key as FCFieldNames)
     );
-      //  get the input placeholder, the fc:frame value, and the aspect ratio for a row. 
+      //  Filter the input placeholder, the fc:frame value, and the aspect ratio for a row. 
     const inputAndAspectRatioRow = sortedEntries.filter(([key]) =>
       [FCFieldNames.FcFrameInputText, FCFieldNames.FcFrame, FCFieldNames.FcFrameImageAspectRatio].includes(key as FCFieldNames)
     );

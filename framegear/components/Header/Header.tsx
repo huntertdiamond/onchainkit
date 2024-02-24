@@ -16,7 +16,7 @@ export function Header() {
 function Banner() {
   return (
     <div
-      className="max-w-layout-max border-pallette-line bg-banner flex w-full items-center justify-between rounded-lg border px-3 py-2"
+      className="max-w-layout-max border-pallette-line bg-banner flex w-full items-center justify-between rounded-lg border px-3 py-2 gap-5"
     >
       <div className="flex items-center gap-4">
         <div className="text-3xl">⚒️</div>
@@ -27,12 +27,14 @@ function Banner() {
           </p>
         </section>
       </div>
-      <Link
-        className="bg-link-button flex items-center gap-1 rounded-full px-4 py-2"
+      <a
+        className="bg-link-button flex items-center gap-1 rounded-lg px-4 py-2"
         href="https://docs.farcaster.xyz/reference/frames/spec"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <span>Farcaster Frames specs</span> <ArrowTopRightIcon />
-      </Link>
+      </a>
     </div>
   );
 }
