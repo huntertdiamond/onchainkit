@@ -39,6 +39,10 @@ function Banner() {
 
 function AppName({ className: additionalClasses = '' }: { className?: string }) {
   return (
-    <span className={`rounded-lg bg-slate-800 p-1 font-mono ${additionalClasses}`}>{APP_NAME}</span>
+    <span
+      className={`bg-content-light rounded-lg p-1 font-mono dark:bg-slate-800 ${additionalClasses}`}
+    >
+      {APP_NAME}
+    </span>
   );
 }
