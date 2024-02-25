@@ -3,6 +3,8 @@ import { vNextSchema } from '@/utils/validation';
 import { useAtom } from 'jotai';
 import { useMemo } from 'react';
 import { type SchemaDescription } from 'yup';
+import { useState } from 'react';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
 
 const REQUIRED_FIELD_NAMES = Object.entries(vNextSchema.describe().fields).reduce(
   (acc, [name, description]) =>
@@ -74,14 +76,23 @@ function ValidationResultsContent() {
 
 type ValidationEntryProps = { name: string; value?: string; error?: string };
 function ValidationEntry({ name, value, error }: ValidationEntryProps) {
+  const [isOpen, setIsOpen] = useState(true);
+
   return (
     <div className="border-pallette-line flex w-full flex-col gap-2 border-b pb-4 last:border-b-0 last:pb-0">
-      <div className="flex justify-between">
+      <button className="flex w-full justify-between text-left" onClick={() => setIsOpen(!isOpen)}>
         <span>{name}</span>
-        <span>{error ? '🔴' : '🟢'}</span>
-      </div>
-      <div className="break-words font-mono">{value || 'Not set'}</div>
-      {!!error && <div className="font-mono italic">{error}</div>}
+        <span className="flex items-center gap-2">
+          {error ? '🔴' : '🟢'}
+          <ChevronDownIcon className={`h-6 w-6 text-gray-500 ${isOpen ? 'rotate-180' : ''}`} />
+        </span>
+      </button>
+      {isOpen && (
+        <div className="break-words font-mono">
+          {value || 'Not set'}
+          {!!error && <div className="font-mono italic">{error}</div>}
+        </div>
+      )}
     </div>
   );
 }
