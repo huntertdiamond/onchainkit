@@ -6,10 +6,10 @@ import { ValidationResults } from '@/components/ValidationResults';
 
 export default function Home() {
   return (
-    <div className="mx-auto flex flex-col items-center gap-8 pb-16">
+    <div className="max-w-layout-max mx-auto flex flex-col gap-8 pb-16">
       <Header />
-      <div className="max-w-layout-max grid w-full grid-cols-[3fr,5fr] gap-12">
-        <div className="flex flex-col gap-4">
+      <div className="mx-auto flex w-full gap-8">
+        <div className="flex w-1/3 flex-col gap-4">
           <FrameInput />
           <Frame />
         </div>

@@ -20,9 +20,10 @@ export function Frame() {
 }
 
 function ValidFrame({ tags }: { tags: Record<string, string> }) {
-  const { image, imageAspectRatio, input, buttons } = useMemo(() => {
+  const { image, imageAspectRatioClassname, input, buttons } = useMemo(() => {
     const image = tags['fc:frame:image'];
-    const imageAspectRatio = tags['fc:frame:image:aspect_ratio'] === '1:1' ? '1/1' : '1.91/1';
+    const imageAspectRatioClassname =
+      tags['fc:frame:image:aspect_ratio'] === '1:1' ? 'aspect-square' : 'aspect-[1.91/1]';
     const input = tags['fc:frame:input:text'];
     // TODO: when debugger is live we will also need to extract actions, etc.
     const buttons = [1, 2, 3, 4].map((index) => {
@@ -39,32 +40,21 @@ function ValidFrame({ tags }: { tags: Record<string, string> }) {
     });
     return {
       image,
-      imageAspectRatio,
+      imageAspectRatioClassname,
       input,
       buttons,
     };
   }, [tags]);
-  // Determine the image class based on the aspect ratio
-  const imageClass = useMemo(() => {
-    switch (imageAspectRatio) {
-      case '1/1':
-        return 'h-[462px] w-[462px]';
-      case '1.91/1':
-        return 'h-[241px] w-[462px]';
-      default:
-        return 'aspect-[1.91/1]';
-    }
-  }, [imageAspectRatio]);
 
   return (
-    <div className="w-full max-w-[460px] sm:max-w-full">
+    <div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className={`w-full rounded-t-xl object-cover ${imageClass}`}
+        className={`w-full rounded-t-xl ${imageAspectRatioClassname} object-cover`}
         src={image}
-        alt="frame image"
+        alt=""
       />
-      <div className="bg-content-light flex flex-col gap-2 rounded-b-xl px-4 py-2">
+      <div className="bg-button-gutter-light dark:bg-content-light flex flex-col gap-2 rounded-b-xl px-4 py-2">
         {!!input && (
           <input
             className="bg-input-light border-light rounded-lg border p-2 text-black"
@@ -97,7 +87,7 @@ function PlaceholderFrame() {
   return (
     <div className="flex flex-col">
       <div className="bg-farcaster flex aspect-[1.91/1] w-full rounded-t-xl"></div>
-      <div className="bg-content-light flex flex-wrap gap-2 rounded-b-xl px-4 py-2">
+      <div className="bg-button-gutter-light dark:bg-content-light flex flex-wrap gap-2 rounded-b-xl px-4 py-2">
         <FrameButton>Get Started</FrameButton>
       </div>
     </div>
